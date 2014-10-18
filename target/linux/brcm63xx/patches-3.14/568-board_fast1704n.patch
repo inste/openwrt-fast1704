@@ -1,0 +1,105 @@
+--- a/arch/mips/bcm63xx/boards/board_bcm963xx.c
++++ b/arch/mips/bcm63xx/boards/board_bcm963xx.c
+@@ -261,6 +261,94 @@ static struct board_info __initdata boar
+ 	},
+ };
+ 
++static struct board_info __initdata board_fast1704n = {
++	.name				= "F@ST1704N",
++	.expected_cpu_id		= 0x6318,
++
++	.has_uart0			= 1,
++	.has_pci			= 1,
++
++	.has_usbd			= 1,
++
++	.usbd = {
++		.use_fullspeed		= 0,
++		.port_no		= 0,
++	},
++
++	.has_enetsw			= 1,
++
++	.has_ehci0			= 1,
++	.num_usbh_ports			= 1,
++
++	.enetsw = {
++		.used_ports = {
++			[0] = {
++				.used	= 1,
++				.phy_id = 1,
++				.name	= "Port 1",
++			},
++			[1] = {
++				.used	= 1,
++				.phy_id	= 2,
++				.name	= "Port 2",
++			},
++			[2] = {
++				.used	= 1,
++				.phy_id	= 3,
++				.name	= "Port 3",
++			},
++			[3] = {
++				.used	= 1,
++				.phy_id	= 4,
++				.name	= "Port 4",
++			},
++		},
++	},
++
++	.leds = {
++		{
++			.name		= "F@ST1704N:red:post-failed",
++			.gpio		= 11,
++			.active_low	= 1,
++		},
++		{
++			.name		= "F@ST1704N:green:inet",
++			.gpio		= 8,
++			.active_low	= 1,
++		},
++		{
++			.name		= "F@ST1704N:red:inet-fail",
++			.gpio		= 9,
++			.active_low	= 1,
++		},
++		{
++			.name		= "F@ST1704N::usb-pwron",
++			.gpio		= 13,
++			.active_low	= 1,
++			.default_trigger = "default-on",
++		},
++	},
++
++	.buttons = {
++		{
++			.desc			= "wps",
++			.gpio			= 33,
++			.active_low		= 1,
++			.type			= EV_KEY,
++			.code			= KEY_WPS_BUTTON,
++			.debounce_interval	= BCM963XX_KEYS_DEBOUNCE_INTERVAL,
++		},
++		{
++			.desc			= "reset",
++			.gpio			= 34,
++			.active_low		= 1,
++			.type			= EV_KEY,
++			.code			= KEY_RESTART,
++			.debounce_interval	= BCM963XX_KEYS_DEBOUNCE_INTERVAL,
++		},
++	},
++};
++
+ static struct sprom_fixup __initdata dsl2751b_e1_fixups[] = {
+ 	{ .offset = 96, .value = 0x2046 },
+ 	{ .offset = 97, .value = 0xfe9d },
+@@ -5193,6 +5281,7 @@ static const struct board_info __initcon
+ 	&board_96318ref,
+ 	&board_96318ref_p300,
+ 	&board_dsl_2751b_d1,
++	&board_fast1704n,
+ #endif
+ #ifdef CONFIG_BCM63XX_CPU_6328
+ 	&board_96328avng,

@@ -277,6 +277,10 @@ define Image/Build
 	# TP-Link 8900GB
 	$(call Image/Build/CFE,$(1),96348GW-11,6348,TD8900GB,$(shell printf 'PRID\x89\x10\x00\x02'))
 
+	# Sagem F@ST1704 aka F@ST2804
+	$(call Image/Build/CFE,$(1),F@ST1704N,6318,F@ST1704N-cfe)
+	$(call Image/Build/CFE,$(1),F@ST1704N,6318,F@ST1704N,OpenWRT-$(REVISION))
+
 	# Sagem F@ST2404
 	$(call Image/Build/CFE,$(1),F@ST2404,6348,F@ST2404-cfe)
 	$(call Image/Build/CFE,$(1),F@ST2404,6348,F@ST2404,OpenWRT-$(REVISION))
